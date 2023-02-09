@@ -5,105 +5,91 @@
 <title>Insert title here</title>
 
 <style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  #encabezados td, #encabezados th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    background-color: #90EE90;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #tablecuerpo tr:nth-child(even){background-color: #f2f2f2;}
+
+  #tablecuerpo tr:hover {background-color: #ddd;}
+
+  #tablecuerpo th {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+  #container {
+    font-family: Arial, Helvetica, sans-serif;
   }
 
-    .spacer {
-    flex: 1;
+  #containerLabel{
+    width: 50%;
+    float: left;
+    text-align: justify;
+    font-family: Arial, Helvetica, sans-serif;
   }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
+  #containerInput{
+    width: 50%;
+    float: right;
+    font-family: Arial, Helvetica, sans-serif;
   }
 </style>
 </head>
 <body>
   <script src="https://code.angularjs.org/1.6.9/angular.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<div ng-app="comunicacionApp" ng-controller="comunicacionController" class="container">
-
-
-    <label for="ii">Inversion inicial:</label>&#160;&#160;<input type="text" id="ii" name="ii" ng-model=inIni><br>
-
-    <label for="aa" >Aportación anual:</label>&#160;<input type="text" id="aa"  name="aa" ng-model=aporAn><br>
-
-    <label for="piaa">% de incremento a la aportación anual:</label> <input type="text" id="piaa"  name="piaa" ng-model=increAn><br>
-
-    <label for="ai">Años de inversión:</label>  <input type="text" name="ai" id="ai"  ng-model=anInver><br>
-
-    <label for="ri">Rendimiento de la inversión:</label> <input type="text" id="ri" name="ri" ng-model=rend><br>
-
-
-
-  <input type="button" value="Calular" ng-click="calcular()"/>
-
-    <br><br><br><br>
-    <div style="text-align:center">
-      <label for="ii">Ganancia por inversión: $</label><input type="text" id="gi" name="gi" value="{{gi}}" style="border: none;"><br>
-      <label for="aa">Monto Final: $</label><input type="text" id="mf" name="mf" value="{{mf}}" style="border: none;"><br>
+	<div ng-app="comunicacionApp" ng-controller="comunicacionController">
+    <div  class="container">
+      <div id="containerLabel">
+        <label for="ii">Inversion inicial:</label><br>
+        <label for="aa" >Aportación anual:</label><br>
+        <label for="piaa">% de incremento a la aportación anual:</label><br>
+        <label for="ai">Años de inversión:</label><br>
+        <label for="ri">Rendimiento de la inversión:</label><br>
+      </div>
+      <div  id="containerInput">
+        <input type="text" id="ii" name="ii" ng-model=inIni><br>
+        <input type="text" id="aa"  name="aa" ng-model=aporAn><br>
+        <input type="text" id="piaa"  name="piaa" ng-model=increAn><br>
+        <input type="text" name="ai" id="ai"  ng-model=anInver><br>
+        <input type="text" id="ri" name="ri" ng-model=rend><br><br>
+        <input type="button" value="Calular" ng-click="calcular()" style="float:left;"/>
+      </div>
+      <div>
+        <br><br><br><br>
+      </div>
     </div>
     <br><br>
-       <table style="width: 100%;">
-				<thead><tr><td>Año</td><td>Saldo Inicial</td><td>Aportación</td><td>Rendimiento</td><td>Saldo Final</td><td></td></tr></thead>
-				<tbody><tr ng-repeat="r in inversion">
-					<td>{{r.anio}}</td>
-					<td>{{r.saldoI}}</td>
-					<td>{{r.aportacion}}</td>
-					<td>{{r.rendimiento}}</td>
-					<td>{{r.saldoF}}</td>
-				</tr>
-			</tbody>
-			</table>
-
-
-</div>
+    <div>
+      <br><br><br>
+      <div style="text-align:center; font-family: Arial, Helvetica, sans-serif;">
+        <label for="ii">Ganancia por inversión: $</label><input type="text" id="gi" name="gi" value="{{gi}}" style="border: none;"><br>
+        <label for="aa">Monto Final: $</label><input type="text" id="mf" name="mf" value="{{mf}}" style="border: none;"><br>
+      </div>
+      <br><br>
+      <table style="width: 100%;">
+		     <thead id="encabezados"><tr><td>Año</td><td>Saldo Inicial</td><td>Aportación</td><td>Rendimiento</td><td>Saldo Final</td></tr></thead>
+		     <tbody id="tablecuerpo">
+           <tr ng-repeat="r in inversion">
+      			 <td>{{r.anio}}</td>
+      			 <td>{{r.saldoI}}</td>
+      			 <td>{{r.aportacion}}</td>
+      			 <td>{{r.rendimiento}}</td>
+      			 <td>{{r.saldoF}}</td>
+		       </tr>
+	       </tbody>
+		  </table>
+    </div>
+  </div>
 
 
 	<script type="text/javascript">
-
-
-
-		var app=angular.module('comunicacionApp',[]);
+    var app=angular.module('comunicacionApp',[]);
 		app.controller('comunicacionController',function($scope,$http){
 			$scope.inversion=[];
       $scope.mf=0;
@@ -122,8 +108,6 @@
 					$scope.reset();
 					$scope.inversion=[];
 				});
-
-
 			}
 
 			$scope.reset=function(){
@@ -132,13 +116,8 @@
 				  this.increAn= '';
 				  this.anInver= '';
 				  this.rend= '';
-
 			}
-
-
 		});
-
-
 </script>
 </body>
 </html>
